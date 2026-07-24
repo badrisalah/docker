@@ -9,8 +9,12 @@ Containers and virtual machines have similar resource isolation and alsimple loc
 
 # Learning Roadmap
 
-* [ ] Container
-* [ ] Image
+-> [+] done , [ ] not done , [-] still learning
+
+* [+] Container
+* [+] Image
+* [ ] NameSpaces
+* [ ] Cgroups
 * [ ] Dockerfile
 * [ ] Volumes
 * [ ] Networks
@@ -29,21 +33,26 @@ Containers and virtual machines have similar resource isolation and alsimple loc
 
 What is a container?
 
+* A live, isolated process running your code inside an environment
+  that contains all of its required libraries and dependencies.
 ---
+
 
 ## Why do we need it?
 
-*
+* PORTABILITY : Make software run wherever docker is installed
 
-*
+* ISOLATION : No software dependencies collision happen
 
-*
+* CLEANUP : The container writes all its messy library files inside its own temporary filesystem , you delete the container it wipes away completely
 
 ---
 
 ## Mental Model
 
 Example analogy:
+
+* two bakers one in humid Florida and one in freezing Alaska—trying to bake the exact same cake using their own local ingredients and ovens. It comes out totally different for each of them.
 
 ---
 
