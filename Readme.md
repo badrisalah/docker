@@ -30,30 +30,31 @@ Containers and virtual machines have similar resource isolation and alsimple loc
 # 1. Container
 
 ## Definition
-
+```
 What is a container?
 
 * A live, isolated process running your code inside an environment
   that contains all of its required libraries and dependencies.
+```
 ---
 
 
 ## Why do we need it?
-
+```
 * PORTABILITY : Make software run wherever docker is installed
 
 * ISOLATION : No software dependencies collision happen
 
 * CLEANUP : The container writes all its messy library files inside its own temporary filesystem , you delete the container it wipes away completely
-
+```
 ---
 
 ## Mental Model
-
+```
 Example analogy:
 
 * two bakers one in humid Florida and one in freezing Alaska—trying to bake the exact same cake using their own local ingredients and ovens. It comes out totally different for each of them.
-
+```
 ---
 
 ## Important Commands
@@ -73,13 +74,13 @@ To remove an image, you must use docker "rmi"
 ### Notes
 
 ----- ADDITIONAL FLAGS------
-
+```
 * -d : (Detached mode): Runs the container in the background so your terminal stays free
 
 * -p : (Port mapping): Maps a port on your Mac/computer to a port inside the container
 
 * --name : Custom name
-
+```
 ---
 
 ## Common Problems [-]
@@ -107,22 +108,25 @@ To remove an image, you must use docker "rmi"
 # 2. Image
 
 ## Definition
-
+```
 * the blueprint of what the container will follow , or how the container will be insantiated
+```
 ---
 
 ## Structure
-
+```
 1. Base OS Layer    --> Alpine Linux, Debian (Minimal OS)
 2. Runtime Layer    --> Node.js, Python, PHP, Nginx
 3. App Code Layer   --> Source code, files, dependencies
 4. Config Layer     --> ENV, EXPOSE, CMD (How it runs)
-
+```
 ---
 ## Why do we need it?
+```
 * NO IMAGE --> You have to install, configure, and debug everything manually on every single computer
 
 * WITH IMAGE --> Download the blueprint, press start, and it runs everywhere identically
+```
 ---
 
 ## Relationship with Containers
