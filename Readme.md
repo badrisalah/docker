@@ -59,29 +59,30 @@ Example analogy:
 ## Important Commands
 
 ```bash
-docker run
-docker ps
-docker stop
-docker rm
+docker run : Creates/starts a container from an image
+
+docker ps : gives you a quick status list of every active container,ID,name,ports,uptime
+
+docker stop : Safely turns off a running container
+
+docker rm/rmi : docker rm ONLY removes containers.
+
+To remove an image, you must use docker "rmi"
 ```
 
 ### Notes
 
-*
+----- ADDITIONAL FLAGS------
 
-*
+* -d : (Detached mode): Runs the container in the background so your terminal stays free
 
----
+* -p : (Port mapping): Maps a port on your Mac/computer to a port inside the container
 
-## Common Problems
-
-*
-
-*
+* --name : Custom name
 
 ---
 
-## How Inception Uses It
+## Common Problems [-]
 
 *
 
@@ -89,7 +90,15 @@ docker rm
 
 ---
 
-## One-Sentence Summary
+## How Inception Uses It [-]
+
+*
+
+*
+
+---
+
+## One-Sentence Summary [-]
 
 >
 
