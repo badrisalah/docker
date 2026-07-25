@@ -108,10 +108,21 @@ To remove an image, you must use docker "rmi"
 
 ## Definition
 
+* the blueprint of what the container will follow , or how the container will be insantiated
 ---
 
-## Why do we need it?
+## Structure
 
+1. Base OS Layer    --> Alpine Linux, Debian (Minimal OS)
+2. Runtime Layer    --> Node.js, Python, PHP, Nginx
+3. App Code Layer   --> Source code, files, dependencies
+4. Config Layer     --> ENV, EXPOSE, CMD (How it runs)
+
+---
+## Why do we need it?
+* NO IMAGE --> You have to install, configure, and debug everything manually on every single computer
+
+* WITH IMAGE --> Download the blueprint, press start, and it runs everywhere identically
 ---
 
 ## Relationship with Containers
