@@ -177,21 +177,25 @@ docker rmi
 # 3. Dockerfile
 
 ## Definition
-
+```
+A Dockerfile is a plain text configuration file containing a sequential list of commands and instructions used by Docker to automatically build a custom Docker Image
+```
 ---
 
 ## Structure
 
 ```dockerfile
-FROM
+FROM -> What base OS to start from
 
-RUN
+RUN -> What software to install
 
-COPY
+COPY -> What files to copy
 
-WORKDIR
+WORKDIR -> creates a specific folder inside your 
+            container and steps inside it (like cd /app),
+            so all remaining commands happen in that one organized spot.
 
-CMD
+CMD -> What command to run when starting
 ```
 
 ---
