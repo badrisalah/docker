@@ -15,7 +15,7 @@ Containers and virtual machines have similar resource isolation and alsimple loc
 * [+] Image
 * [ ] NameSpaces
 * [ ] Cgroups
-* [ ] Dockerfile
+* [+] Dockerfile
 * [ ] Volumes
 * [ ] Networks
 * [ ] Docker Compose
@@ -211,16 +211,13 @@ Container
 # 4. Volumes
 
 ## Definition
-
----
+```
+A Volume is a persistent folder created on your host computer that is mounted (linked) directly into a container.
+```
 
 ## Why are Volumes Needed?
 
-*
-
-*
-
-*
+* A Volume is a persistent storage box on your host machine that keeps your data safe, even when containers are stopped or destroyed.
 
 ---
 
@@ -237,14 +234,16 @@ Volume Survives
 ## Commands
 
 ```bash
-docker volume ls
-docker volume inspect
-docker volume rm
+docker volume ls -> List all volumes
+docker volume inspect <volume name> -> View detailed info & storage path
+docker volume rm <volume name -> remove a volume`
 ```
 
 ---
 
 ## Inception Usage
+
+* data loss is an automatic fail. You must use two mandatory volumes to keep data safe across container restarts
 
 ### MariaDB Data
 
