@@ -156,11 +156,22 @@ docker rmi
 
 *
 
+# 2.1 NameSpaces 
+
+## definition 
+```
+A Linux Kernel feature that creates virtual boundaries (isolation) around a container.
+It gives a running process its own private view of the operating system
+so it thinks it is the only thing running on the machine.
+```
+
 # 3. Dockerfile
 
 ## Definition
 ```
-A Dockerfile is a plain text configuration file containing a sequential list of commands and instructions used by Docker to automatically build a custom Docker Image
+A Dockerfile is a plain text configuration file,
+containing a sequential list of commands and instructions used by Docker
+to automatically build a custom Docker Image
 ```
 ---
 
