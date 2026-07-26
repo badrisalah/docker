@@ -13,7 +13,7 @@ Containers and virtual machines have similar resource isolation and alsimple loc
 
 * [+] Container
 * [+] Image
-* [ ] NameSpaces
+* [+] NameSpaces
 * [ ] Cgroups
 * [+] Dockerfile
 * [+] Volumes
