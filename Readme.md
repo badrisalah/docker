@@ -150,29 +150,11 @@ docker pull
 docker rmi
 ```
 
----
-
-## Common Problems
-
-*
-
-*
-
----
-
 ## How Inception Uses It
 
 *
 
 *
-
----
-
-## One-Sentence Summary
-
->
-
----
 
 # 3. Dockerfile
 
@@ -200,48 +182,6 @@ CMD -> What command to run when starting
 
 ---
 
-## Common Instructions
-
-### FROM
-
-Purpose:
-
-Example:
-
----
-
-### RUN
-
-Purpose:
-
-Example:
-
----
-
-### COPY
-
-Purpose:
-
-Example:
-
----
-
-### WORKDIR
-
-Purpose:
-
-Example:
-
----
-
-### CMD
-
-Purpose:
-
-Example:
-
----
-
 ## Build Process
 
 ```text
@@ -263,10 +203,6 @@ Container
 *
 
 *
-
----
-
-## One-Sentence Summary
 
 >
 
