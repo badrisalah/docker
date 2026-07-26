@@ -16,7 +16,7 @@ Containers and virtual machines have similar resource isolation and alsimple loc
 * [ ] NameSpaces
 * [ ] Cgroups
 * [+] Dockerfile
-* [ ] Volumes
+* [+] Volumes
 * [ ] Networks
 * [ ] Docker Compose
 * [ ] Environment Variables
@@ -247,8 +247,12 @@ docker volume rm <volume name -> remove a volume`
 
 ### MariaDB Data
 
-Notes:
+Stores all your dynamic website information, including user accounts, password hashes, blog posts, comments, and site configurations
 
+
+* Default Container Path: /var/lib/mysql
+
+* Host Path (Inception Rule): /home/login/data/mariadb
 ---
 
 ### WordPress Files
