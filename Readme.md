@@ -165,6 +165,24 @@ It gives a running process its own private view of the operating system
 so it thinks it is the only thing running on the machine.
 ```
 
+
+# 2.2 Cgroups
+## Definition 
+```
+Cgroups are a Linux Kernel feature that groups processes together
+and enforces three main controls:
+
+1- Recource Limiting :
+      Caps max consumption : max 512 MB RAM, 2 CPUs
+
+2- Prioritization :
+        Allocates relative processing shares when the systemis busy
+              (e.g., Nginx gets 70% CPU, worker gets 30%)
+3- Accounting :
+              Tracks live usage metrics
+(how much RAM/CPU/Disk IO a container is currently using)
+```
+
 # 3. Dockerfile
 
 ## Definition
