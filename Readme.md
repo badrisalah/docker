@@ -3,6 +3,7 @@
 > Goal: Understand every component of the Inception project from first principles.
 
 ---
+// On Page 24 ... 
 
 # Vitual Machine vs Containers
 Containers and virtual machines have similar resource isolation and alsimple location benefits, but function differently because containers virtualize the operating system instead of hardware. Containers are more portable and efficient.
