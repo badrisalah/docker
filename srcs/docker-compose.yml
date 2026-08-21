@@ -1,0 +1,47 @@
+services:
+  mariadb:
+    image: mariadb
+    restart: always
+    build: ./requirements/mariadb
+    container_name: mariadb
+    env_file: .env
+    volumes:
+      - mariadb_data:/var/lib/mysql
+
+  wordpress:
+    image: wordpress
+    restart: always
+    build: ./requirements/wordpress
+    container_name: wordpress
+    env_file: .env
+    depends_on:
+      - mariadb
+    volumes:
+      - wordpress_data:/var/www/html
+
+  nginx:
+    image: nginx
+    restart: always
+    build: ./requirements/nginx
+    container_name: nginx
+    depends_on:
+      - wordpress
+    ports:
+      - "443:443"
+    volumes:
+      - wordpress_data:/var/www/html
+
+volumes:
+  mariadb_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/sabadri/data/mariadb
+      o: bind
+
+  wordpress_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/sabadri/data/wordpress
+      o: bind
