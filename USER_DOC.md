@@ -33,13 +33,13 @@ make clean
 Website:
 
 ```text
-https://sabadri.42
+https://sabadri.42.fr
 ```
 
 Admin panel:
 
 ```text
-https://sabadri.42/wp-admin
+https://sabadri.42/wp-admin.fr
 ```
 
 ## Credentials
