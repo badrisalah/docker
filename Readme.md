@@ -8,9 +8,9 @@ The goal is to build a small infrastructure using **Docker Compose**, with each 
 
 The infrastructure contains:
 
-* **NGINX** — HTTPS web server and entry point.
-* **WordPress + PHP-FPM** — website and application layer.
-* **MariaDB** — database server.
+* **NGINX** - HTTPS web server and entry point.
+* **WordPress + PHP-FPM** - website and application layer.
+* **MariaDB** - database server.
 
 Docker is used to isolate each service, manage dependencies, create a private network, and persist data using volumes.
 
