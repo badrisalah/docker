@@ -1,6 +1,0 @@
-# Ignore confidential secret files
-secrets/*
-!secrets/.gitkeep
-
-# Ignore actual environment file
-srcs/.env
