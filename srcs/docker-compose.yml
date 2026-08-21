@@ -5,6 +5,9 @@ services:
     build: ./requirements/mariadb
     container_name: mariadb
     env_file: .env
+    secrets:
+      - db_password
+      - db_root_password
     volumes:
       - mariadb_data:/var/lib/mysql
 
@@ -14,6 +17,9 @@ services:
     build: ./requirements/wordpress
     container_name: wordpress
     env_file: .env
+    secrets:
+      - db_password
+      - wp_admin_password
     depends_on:
       - mariadb
     volumes:
@@ -45,3 +51,11 @@ volumes:
       type: none
       device: /home/sabadri/data/wordpress
       o: bind
+
+secrets:
+  db_password:
+    file: ../secrets/db_password.txt
+  db_root_password:
+    file: ../secrets/db_root_password.txt
+  wp_admin_password:
+    file: ../secrets/wp_admin_password.txt

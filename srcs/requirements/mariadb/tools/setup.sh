@@ -1,7 +1,9 @@
 #!/bin/bash
-
 set -e
 
+# Read secrets into variables
+WP_DB_PASSWORD=$(cat /run/secrets/db_password)
+DB_ROOT_PW=$(cat /run/secrets/db_root_password)
 
 mkdir -p /run/mysqld
 chown mysql:mysql /run/mysqld
@@ -10,7 +12,7 @@ if [ ! -d "/var/lib/mysql/$WP_DB_NAME" ]; then
 
     mysqld_safe --skip-networking --user=mysql &
 
-    until mariadbadmin ping --silent; do
+    until mariadb-admin ping --silent; do
         sleep 1
     done
 
@@ -34,4 +36,3 @@ EOF
 fi
 
 exec mariadbd --bind-address=0.0.0.0 --user=mysql
-
