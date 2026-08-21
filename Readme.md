@@ -39,7 +39,7 @@ The project uses custom Dockerfiles and scripts based on **Debian**, rather than
 Clone the repository and enter the project directory:
 
 ```bash
-git clone <repository-url>
+git clone repo
 cd inception
 ```
 
