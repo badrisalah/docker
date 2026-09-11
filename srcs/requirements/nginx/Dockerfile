@@ -1,15 +1,20 @@
-FROM debian:bookworm
+FROM    debian:bookworm
 
-RUN apt-get update && \
-    apt-get install -y nginx openssl && \
-    rm -rf /var/lib/apt/lists/*
+# "Execute this command while BUILDING the Docker image."
 
-RUN mkdir -p /etc/nginx/ssl && \
-    openssl req -x509 -nodes \
-    -out /etc/nginx/ssl/inception.crt \
-    -keyout /etc/nginx/ssl/inception.key \
-    -subj "/C=MO/ST=KH/L=KH/O=1337/OU=1337/CN=sabadri.42.fr/UID=sabadri"
+RUN     apt-get update && \
+        apt-get install -y nginx openssl curl && \
+         rm -rf /var/lib/apt/lists/*
 
-COPY conf/nginx.conf /etc/nginx/nginx.conf
+RUN     mkdir -p /etc/nginx/ssl && \
+        openssl req -x509 -nodes \
+        #save the certificate here
+        -out /etc/nginx/ssl/inception.crt \
+        #where to save the private key 
+        -keyout /etc/nginx/ssl/inception.key \
+        #identity information inside the certificate
+        -subj "/C=MO/ST=KH/L=KH/O=1337/OU=1337/CN=sabadri.42.fr"
 
-CMD ["nginx", "-g", "daemon off;"]
+COPY    conf/nginx.conf /etc/nginx/nginx.conf
+        # keep nginx running in the foreground
+CMD     ["nginx", "-g", "daemon off;"]
