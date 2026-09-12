@@ -1,38 +1,25 @@
 #!/bin/bash
-set -e
 
-# Read secrets into variables
-WP_DB_PASSWORD=$(cat /run/secrets/db_password)
-DB_ROOT_PW=$(cat /run/secrets/db_root_password)
+service mariadb start
 
-mkdir -p /run/mysqld
-chown mysql:mysql /run/mysqld
+# wait for the service to start
+sleep 7
 
-if [ ! -d "/var/lib/mysql/$WP_DB_NAME" ]; then
+# Create the database that wp will use
+mariadb -e "CREATE DATABASE IF NOT EXISTS $WP_DB_NAME;"
 
-    mysqld_safe --skip-networking --user=mysql &
+# give all privileges on wp-db
+# to wp-db-user ('%' means he can connect from any host)
+# finally sets the wp-db-user password
+mariadb -e "GRANT ALL ON $WP_DB_NAME.* \
+        TO '$WP_DB_USER'@'%' IDENTIFIED BY '$WP_DB_PASSWORD';"
 
-    until mariadb-admin ping --silent; do
-        sleep 1
-    done
+# changes the password of root to DB_ROOT_PW
+# this is root@localhost (connection comes from the MariaDB container itself)
+mariadb -e "ALTER USER '$DB_ROOT_USER'@'localhost' IDENTIFIED BY '$DB_ROOT_PW';"
 
-    mariadb << EOF
-CREATE DATABASE IF NOT EXISTS $WP_DB_NAME
-    DEFAULT CHARACTER SET utf8
-    COLLATE utf8_unicode_ci;
+# Stop the service for now
+mysqladmin -u $DB_ROOT_USER -p$DB_ROOT_PW shutdown
 
-CREATE USER IF NOT EXISTS '$WP_DB_USER'@'%' IDENTIFIED BY '$WP_DB_PASSWORD';
-
-GRANT ALL PRIVILEGES ON $WP_DB_NAME.* TO '$WP_DB_USER'@'%';
-
-ALTER USER '$DB_ROOT_USER'@'localhost'
-    IDENTIFIED BY '$DB_ROOT_PW';
-
-FLUSH PRIVILEGES;
-EOF
-
-    mysqladmin -u "$DB_ROOT_USER" -p"$DB_ROOT_PW" shutdown
-
-fi
-
-exec mariadbd --bind-address=0.0.0.0 --user=mysql
+# make the service the main process (ie PID 1)
+exec mysqld_safe
