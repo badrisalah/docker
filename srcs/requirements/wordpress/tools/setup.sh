@@ -1,48 +1,48 @@
 #!/bin/bash
 
-# Read secrets into variables
-WP_DB_PASSWORD=$(cat /run/secrets/db_password)
-WP_ADMIN_PASSWORD=$(cat /run/secrets/wp_admin_password)
+wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 
-mkdir -p /var/www/html
-cd /var/www/html
+chmod +x wp-cli.phar
 
-if [ ! -f wp-config.php ]; then
+mv wp-cli.phar /usr/local/bin/wp
 
-    if [ ! -f wp-load.php ]; then
-        curl -O https://wordpress.org/latest.tar.gz
-        tar -xzf latest.tar.gz --strip-components=1
-        rm latest.tar.gz
-    fi
+# --allow-root is required because this script runs as root inside the container.
+wp core download --allow-root
 
-    echo "Waiting for MariaDB..."
+# wp config create creates the WordPress configuration file: /var/www/html/wp-config.php
+# This file contains the information WordPress needs to
+# connect to the MariaDB database.
 
-    until mariadb \
-        -h mariadb \
-        -u "$WP_DB_USER" \
-        -p"$WP_DB_PASSWORD" \
-        "$WP_DB_NAME" \
-        -e "SELECT 1" >/dev/null 2>&1
-    do
-        sleep 2
-    done
-
-    wp config create \
-        --dbname="$WP_DB_NAME" \
-        --dbuser="$WP_DB_USER" \
-        --dbpass="$WP_DB_PASSWORD" \
-        --dbhost="mariadb:3306" \
+wp config create \
+        --dbname=$WP_DB_NAME \
+        --dbuser=$WP_DB_USER \
+        --dbpass=$WP_DB_PASSWORD \
+        --dbhost=$WP_DB_HOST \
         --allow-root
 
-    wp core install \
-        --url="https://sabadri.42.fr" \
+# now we have the config.php file 
+# "wp core install" performs the actual WordPress
+# installation
+# It creates the WordPress database tables and creates the
+# administrator account
+
+wp core install \
+        --url="$WP_URL" \
         --title="Inception" \
-        --admin_user="$WP_ADMIN_USER" \
-        --admin_password="$WP_ADMIN_PASSWORD" \
-        --admin_email="$WP_ADMIN_EMAIL" \
+        --admin_user=$WP_ADMIN_USER \
+        --admin_password=$WP_ADMIN_PW \
+        --admin_email=$WP_ADMIN_EMAIL \
         --allow-root
 
-    chown -R www-data:www-data /var/www/html
-fi
+# create the second user (not admin)
+wp user create \
+        $WP_AUTHOR_USER \
+        $WP_AUTHOR_EMAIL \
+        --user_pass=$WP_AUTHOR_PW \
+        --role=author \
+        --allow-root
 
+# PHP-FPM is the process that actually executes PHP code
+# -F means 'Foreground'
+# Make PHP-FPM the container's main process and keep it running in the foreground
 exec php-fpm8.2 -F
