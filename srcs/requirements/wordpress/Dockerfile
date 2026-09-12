@@ -1,21 +1,29 @@
 FROM debian:bookworm
 
+WORKDIR /var/www/html
+
 RUN apt-get update && \
     apt-get install -y \
-    php8.2-fpm \
-    php8.2-mysql \
-    curl \
-    mariadb-client \
-    && rm -rf /var/lib/apt/lists/*
+	#fast-cgi
+        php8.2-fpm \
+	
+	#to communicate with mariadb
+        php8.2-mysql \
+	
+	#php-cli because wpcli is php based application
+        php8.2-cli \
+	
+	#installation tool
+        wget \
+	rm -rf /var/lib/apt/lists/*
 
-RUN sed -i 's|^listen = .*|listen = 9000|' /etc/php/8.2/fpm/pool.d/www.conf
+	#Change PHP-FPM from a Unix socket to port 9000
+RUN	sed -i 's|^listen = .*|listen = 0.0.0.0:9000|' \
+	/etc/php/8.2/fpm/pool.d/www.conf
+	
+	#changing the location would also work , jst semantics
+COPY	tools/exec.sh /user/local/bin/exec.sh
 
-RUN curl -o /usr/local/bin/wp \
-    https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
-    chmod +x /usr/local/bin/wp
+RUN	chmod +x /usr/local/bin/exec.sh
 
-COPY tools/setup.sh /setup.sh
-
-RUN chmod +x /setup.sh
-
-ENTRYPOINT ["/setup.sh"]
+ENTRYPOINT	["user/local/bin/exec.sh"]
